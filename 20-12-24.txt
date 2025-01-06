@@ -1,0 +1,180 @@
+Create Database:
+	create database cvr;
+
+Connect to Database:
+	use cvr;
+
+Create a table student:
+
+	create table student(
+		sno int primary key,
+		sname varchar(40) not null,
+		marks float,
+		city varchar(20),
+		mobile int,
+		gender varchar(20)
+	);
+
+
+insert into student values(6701,'alex',82,'mumbai',99443322,'male');
+insert into student values(6702,'sara',65,'delhi',99665544,'female');
+insert into student values(6703,'lina',91,'bangalore',99887755,'female');
+insert into student values(6704,'mark',73,'hyderabad',99334455,'male');
+insert into student values(6705,'david',85,'pune',99112233,'male');
+insert into student values(6706,'emma',55,'delhi',99778899,'female');
+insert into student values(6707,'rahul',77,'mumbai',99445566,'male');
+insert into student values(6708,'siddharth',92,'hyderabad',99883377,'male');
+insert into student values(6709,'vikas',80,'bangalore',99779944,'male');
+insert into student values(6710,'neel',68,'delhi',99887711,'male');
+insert into student values(6711,'riya',74,'mumbai',99992233,'female');
+insert into student values(6712,'kamal',60,'pune',99003344,'male');
+insert into student values(6713,'nisha',89,'hyderabad',99557788,'female');
+insert into student values(6714,'rohit',55,'bangalore',99336644,'male');
+
+-- output for select * from student:
+-- +--------+-----------+-------+------------+------------+--------+
+-- | rollno | name      | marks | city       | phonenumber| gender |
+-- +--------+-----------+-------+------------+------------+--------+
+-- | 6701   | alex      | 82    | mumbai     | 99443322   | male   |
+-- | 6702   | sara      | 65    | delhi      | 99665544   | female |
+-- | 6703   | lina      | 91    | bangalore  | 99887755   | female |
+-- | 6704   | mark      | 73    | hyderabad  | 99334455   | male   |
+-- | 6705   | david     | 85    | pune       | 99112233   | male   |
+-- | 6706   | emma      | 55    | delhi      | 99778899   | female |
+-- | 6707   | rahul     | 77    | mumbai     | 99445566   | male   |
+-- | 6708   | siddharth | 92    | hyderabad  | 99883377   | male   |
+-- | 6709   | vikas     | 80    | bangalore  | 99779944   | male   |
+-- | 6710   | neel      | 68    | delhi      | 99887711   | male   |
+-- | 6711   | riya      | 74    | mumbai     | 99992233   | female |
+-- | 6712   | kamal     | 60    | pune       | 99003344   | male   |
+-- | 6713   | nisha     | 89    | hyderabad  | 99557788   | female |
+-- | 6714   | rohit     | 55    | bangalore  | 99336644   | male   |
+-- +--------+-----------+-------+------------+------------+--------+
+
+1. Display student details whose city is Pune
+
+	mysql> select *from student where city = "Pune";
+	+--------+--------+-------+-------+------------+--------+
+	| rollno | name   | marks | city  | phonenumber| gender |
+	+--------+--------+-------+-------+------------+--------+
+	| 6705   | david  | 85    | pune  | 99112233   | male   |
+	| 6712   | kamal  | 60    | pune  | 99003344   | male   |
+	+--------+--------+-------+-------+------------+--------+
+	2 rows in set (0.00 sec)
+
+2. Display student details whose city is Hyderabad or Pune
+
+	mysql> select *from student where city = "Pune" or city = "Hyderabad";
+	+--------+-----------+-------+------------+------------+--------+
+	| rollno | name      | marks | city       | phonenumber| gender |
+	+--------+-----------+-------+------------+------------+--------+
+	| 6704   | mark      | 73    | hyderabad  | 99334455   | male   |
+	| 6705   | david     | 85    | pune       | 99112233   | male   |
+	| 6708   | siddharth | 92    | hyderabad  | 99883377   | male   |
+	| 6712   | kamal     | 60    | pune       | 99003344   | male   |
+	| 6713   | nisha     | 89    | hyderabad  | 99557788   | female |
+	+--------+-----------+-------+------------+------------+--------+
+	5 rows in set (0.00 sec)
+
+3. Display Female Students from Hyderabad and Male students from Pune and all the Students from Banglore
+
+	mysql> select *from student where (city = "Hyderabad" and gender = "Female") or (city = "Pune" and gender = "Male") or (city = "Banglore");
+	+--------+-----------+-------+------------+------------+--------+
+	| rollno | name      | marks | city       | phonenumber| gender |
+	+--------+-----------+-------+------------+------------+--------+
+	| 6703   | lina      | 91    | bangalore  | 99887755   | female |
+	| 6704   | mark      | 73    | hyderabad  | 99334455   | male   |
+	| 6705   | david     | 85    | pune       | 99112233   | male   |
+	| 6709   | vikas     | 80    | bangalore  | 99779944   | male   |
+	| 6713   | nisha     | 89    | hyderabad  | 99557788   | female |
+	+--------+-----------+-------+------------+------------+--------+
+	5 rows in set (0.00 sec)
+
+4. Display students details
+From Hyderabad city, Male Students who scored more than 70 and Female who score more than 50
+From Pune only Male Students
+Do not take students from Banglore
+
+	mysql> select *from student where city = "Hyderabad" and (gender = "Male" and marks > 70) or (gender = "Female" and marks > 50) or (city = "Pune" and gender = "Male");
+	+--------+-----------+-------+------------+------------+--------+
+	| rollno | name      | marks | city       | phonenumber| gender |
+	+--------+-----------+-------+------------+------------+--------+
+	| 6701   | alex      | 82    | mumbai     | 99443322   | male   |
+	| 6704   | mark      | 73    | hyderabad  | 99334455   | male   |
+	| 6705   | david     | 85    | pune       | 99112233   | male   |
+	| 6707   | rahul     | 77    | mumbai     | 99445566   | male   |
+	| 6708   | siddharth | 92    | hyderabad  | 99883377   | male   |
+	| 6712   | kamal     | 60    | pune       | 99003344   | male   |
+	| 6713   | nisha     | 89    | hyderabad  | 99557788   | female |
+	+--------+-----------+-------+------------+------------+--------+
+	7 rows in set (0.00 sec)
+
+5. Display Students details whose score between 50 and 80 and city should be Hyderabad or Banglore
+
+	mysql> select *from student where marks between 50 and 80 and city = "Hyderabad" or city = "Banglore";
+	+--------+-----------+-------+------------+------------+--------+
+	| rollno | name      | marks | city       | phonenumber| gender |
+	+--------+-----------+-------+------------+------------+--------+
+	| 6702   | sara      | 65    | mumbai     | 99665544   | female |
+	| 6704   | mark      | 73    | hyderabad  | 99334455   | male   |
+	| 6705   | david     | 85    | pune       | 99112233   | male   |
+	| 6707   | rahul     | 77    | mumbai     | 99445566   | male   |
+	| 6708   | siddharth | 92    | hyderabad  | 99883377   | male   |
+	| 6712   | kamal     | 60    | pune       | 99003344   | male   |
+	| 6713   | nisha     | 89    | hyderabad  | 99557788   | female |
+	+--------+-----------+-------+------------+------------+--------+
+	7 rows in set (0.00 sec)
+
+6. Display student details whose name starts with S and ends with A
+
+	mysql> select *from student where name like "S%A";
+	+--------+-----------+-------+------------+------------+--------+
+	| rollno | name      | marks | city       | phonenumber| gender |
+	+--------+-----------+-------+------------+------------+--------+
+	| 6701   | siddharth | 92    | hyderabad  | 99883377   | male   |
+	+--------+-----------+-------+------------+------------+--------+
+	1 row in set (0.00 sec)
+
+7. Display number of students in each city
+
+	mysql> select city,count(city) as 'no_of_students' from student group by city;
+	+-----------+----------------+ 
+	| city      | no_of_students | 
+	+-----------+----------------+ 
+	| bangalore | 3              | 
+	| hyderabad | 4              | 
+	| pune      | 3              | 
+	+-----------+----------------+ 
+	3 rows in set (0.00 sec)
+
+8. Best city in education based on score.
+
+	mysql> select city from student group by city order by avg(marks) desc limit 1;
+	+-----------+
+	| city      |
+	+-----------+
+	| bangalore |
+	+-----------+
+	1 row in set (0.00 sec)
+
+9. Top score in each city
+
+	mysql> select city, max(marks) as top_score from student group by city;
+	+-----------+-----------+
+	| city      | top_score |
+	+-----------+-----------+
+	| bangalore | 91        |
+	| hyderabad | 92        |
+	| pune      | 85        |
+	+-----------+-----------+
+	3 rows in set (0.00 sec)
+
+10. Display topper details in Hyderabad
+
+	mysql> select *from student where city = 'hyderabad' order by marks desc limit 1;
+	+--------+-----------+-------+------------+------------+--------+
+	| rollno | name      | marks | city       | phonenumber| gender |
+	+--------+-----------+-------+------------+------------+--------+
+	| 6708   | siddharth | 92    | hyderabad  | 99883377   | male   |
+	+--------+-----------+-------+------------+------------+--------+
+	1 row in set (0.00 sec)
